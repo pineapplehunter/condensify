@@ -9,6 +9,12 @@ use std::path::Path;
 
 use serde::{Deserialize, Serialize};
 
+mod argparse;
+mod backup;
+mod restore;
+
+use argparse::arg_parse;
+
 #[derive(Serialize, Deserialize, Debug)]
 struct SaveStruct {
     path: OsString,
@@ -20,6 +26,11 @@ struct SaveStruct {
 struct SaveStructArray(Vec<SaveStruct>);
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args = arg_parse()?;
+
+    println!("{:?}", args);
+    return Ok(());
+
     let home = dirs::home_dir().ok_or("could not open home.")?;
     let project_dir = home.join("Projects");
     let backup_dir = home.join("Backup");
