@@ -10,10 +10,9 @@ use std::path::Path;
 use serde::{Deserialize, Serialize};
 
 mod argparse;
-mod backup;
-mod restore;
+use condensify;
 
-use argparse::arg_parse;
+use argparse::{arg_parse, Args};
 
 #[derive(Serialize, Deserialize, Debug)]
 struct SaveStruct {
@@ -29,6 +28,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args = arg_parse()?;
 
     println!("{:?}", args);
+
+    unimplemented!();
+
+    if let Args::Backup(b) = args {
+        b.from
+    }
     return Ok(());
 
     let home = dirs::home_dir().ok_or("could not open home.")?;
